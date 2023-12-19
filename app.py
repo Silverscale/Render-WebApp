@@ -59,3 +59,5 @@ selected_genres = []
 for idg, g in enumerate(st.session_state['genres']):
     with cols[idg % 3]:
         selected_genres.append(st.checkbox(g))
+
+selected_datapoint = st.selectbox('Metric', ['rating_int','gross_worldwide'])
