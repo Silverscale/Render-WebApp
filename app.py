@@ -6,6 +6,18 @@ import plotly.express as px
 
 df = pd.read_csv('./IMDbMovies_clean.csv')
 
+if 'genres' not in st.session_state:
+    genres = set()
+
+    for line in df['main_genres'].unique():
+        for genre in line.split(','):
+            genres.add(genre.strip())
+
+    genres.discard('unknown') # This marks missing data, so it's not needed.
+
+    st.session_state['genres'] = list(genres)
+
+    
 st.header('IMDbMovies')
 st.write("Let's take a look at the cinematographic industry's evolution over the years")
 st.subheader('Increasing production costs')
