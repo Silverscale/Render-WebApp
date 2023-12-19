@@ -61,3 +61,33 @@ for idg, g in enumerate(st.session_state['genres']):
         selected_genres.append(st.checkbox(g))
 
 selected_datapoint = st.selectbox('Metric', ['rating_int','gross_worldwide'])
+
+
+# Filter out currencies other than $, so we can comfortably chart for revenue and budget.
+filtered_dollar_df = df[df['currency'] == '$']
+#Filter out movies were the data on budget, gross_worldwide or rating is missing.
+filtered_dollar_df = filtered_dollar_df[filtered_dollar_df['budget_estimated'] > 0]
+filtered_dollar_df = filtered_dollar_df[filtered_dollar_df['gross_worldwide'] > 0]
+filtered_dollar_df = filtered_dollar_df[filtered_dollar_df['rating_int'] > 0]
+
+selected_genres_str = ''
+for id_g, g in enumerate(selected_genres):
+    if g:
+        selected_genres_str = selected_genres_str + st.session_state['genres'][id_g] + '|'
+selected_genres_str = selected_genres_str[:-1]
+
+selected_genre_df = filtered_dollar_df[
+    filtered_dollar_df['main_genres'].str.contains(selected_genres_str, regex=True)]
+
+fig = px.scatter(
+    selected_genre_df,
+    x='budget_estimated',
+    y=selected_datapoint,
+    hover_data=['title', 'rating_int', 'gross_worldwide'],
+    color='release_year')
+if selected_datapoint == 'rating_int':
+    fig.update_layout(yaxis=dict(range=[0,100]))
+
+fig.update_layout(xaxis=dict(range=[0,380000000]))
+
+st.plotly_chart(fig)
