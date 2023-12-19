@@ -17,7 +17,7 @@ if 'genres' not in st.session_state:
 
     st.session_state['genres'] = list(genres)
 
-    
+
 st.header('IMDbMovies')
 st.write("Let's take a look at the cinematographic industry's evolution over the years")
 st.subheader('Increasing production costs')
@@ -45,3 +45,17 @@ st.write("The gross revenue has, in general, increased together with the cost of
          " production. There is a sharp drop in 2020, showing the effects of covid-19", \
          " on the cinematographic industry. And it hasn't recovered yet.", \
          " Right now the industry is on the revenue level of the late 80's.")
+
+st.subheader('Budget Analysis by Genre')
+st.write('A higher budget allows for a better quality movie, and the result shows', \
+         ' on ratings and revenue. How much is each genre affected by an increased budget?')
+
+st.write('Genres:')
+
+
+cols = st.columns(3)
+
+selected_genres = []
+for idg, g in enumerate(st.session_state['genres']):
+    with cols[idg % 3]:
+        selected_genres.append(st.checkbox(g))
