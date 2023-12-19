@@ -20,6 +20,8 @@ To open the jupyter notebook, you can visit jupyter.org and either install it or
 \Notebook\EDA.ipynb
 \IMDbMovies.csv
 
-To open the web app, you need to set up a Python environment (this project was made with version 3.9.18) and install the libraries mentioned above. Then run the app with the command:
+To open the web app locally, you need to set up a Python environment (this project was made with version 3.9.18) and install the libraries mentioned above. Then run the app with the command:
     streamlit run app.py
 This will open the app in your web browser.
+
+Or you can visit https://tripleten-imdbmovies.onrender.com/
