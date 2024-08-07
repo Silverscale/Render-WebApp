@@ -3,8 +3,10 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import os
 
-df = pd.read_csv('./IMDbMovies_clean.csv')
+data_path = 'datasets'
+df = pd.read_csv(os.path.join(data_path, 'IMDbMovies_clean.csv'))
 
 if 'genres' not in st.session_state:
     genres = set()
